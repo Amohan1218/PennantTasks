@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Train Reservation</title>
+	<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+	<center>
+		<form action="getResult">
+			<h1>Train_Reservation</h1>
+			<table border="2" width="80%">
+				<tr>
+					<td><label for="from" class="labelth">From</label></td>
+					<td>
+						<select name="from" id="from">
+							<option value="select">-- Select --</option>
+						</select>
+					</td>
+					<td><label for="to" class="labelth">To</label></td>
+					<td>
+						<select name="to" id="to">
+							<option value="select">-- Select --</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="trainslist" class="labelth">Trains List</label>
+					</td>
+					<td colspan="3">
+						<select name="trainslist" id="trainslist">
+							<option value="select">-- Select Train--</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="class" class="labelth">Class</label>
+					</td>
+					<td>
+						<Select name="class" id="class">
+							<option value="select">-- Select --</option>
+							<option value="2S">2S</option>
+							<option value="SL">SL</option>
+							<option value="3A">3A</option>
+							<option value="2A">2A</option>
+						</Select>
+					</td>
+					<td><label for="dt" class="labelth">Date of Journey</label></td>
+					<td>
+						<input type="date" name="date" id="dt">
+					</td>
+				</tr>
+			</table>
+
+			<h2>Passenger Details</h2>
+			<table border="1" width="80%" id="ptable">
+				<tr>
+					<th>Sl.no.</th>
+					<th>Passenger name</th>
+					<th>Gender</th>
+					<th>Age</th>
+					<th></th>
+				</tr>
+			</table><br><br>
+
+			<input type="submit" value="Book Ticket" class="kbtn">
+			<input type="reset" value="Clear Data" class="kbtn">
+
+			<!--<button id="submitf" class="kbtn">Book Ticket</button>
+		<button id="resetf" class="kbtn">Reset</button>-->
+		</form><br>
+		
+		<button id="addpassenger" class="kbtn">Add Passenger</button>
+	</center>
+	<script src="script.js"></script>
+</body>
+
+</html>

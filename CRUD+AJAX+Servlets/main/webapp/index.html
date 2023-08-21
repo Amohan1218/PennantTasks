@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CRUD Homepage</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		h1 {
+			text-align: center;
+		}
+
+		td {
+			padding: 10px;
+			font-size: 20px;
+		}
+
+		.inpt {
+			padding: 8px;
+		}
+
+		body {
+			margin: 3%;
+		}
+
+		select {
+			color: whitesmoke;
+			background-color: rgb(69, 68, 68);
+			padding: 5px;
+			font-size: 15px;
+		}
+
+		button {
+			font-size: 15px;
+			padding: 6px;
+			width: 80px;
+			transition-duration: 0.4s;
+		}
+
+		button:hover {
+			background-color: rgb(143, 143, 143);
+			color: rgb(0, 0, 0);
+			border: 2px solid rgb(0, 0, 0);
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Employee Master Entry</h1>
+	<br>
+	<table border="0" width="100%" height="100%">
+		<tr>
+			<td>Employee ID</td>
+			<td><input type="text" class="inpt" id="empid" name="empid" value=""></td>
+			<td>Mode</td>
+			<td><select name="mode" id="mode">
+					<option value="select">--Select--</option>
+					<option value="read">Read</option>
+					<option value="edit">Edit</option>
+					<option value="new">New</option>
+				</select></td>
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td><input type="text" class="inpt" id="name" name="name" value=""></td>
+		</tr>
+		<tr>
+			<td>Designation</td>
+			<td><input type="text" class="inpt" id="designation" name="designation" value=""></td>
+		</tr>
+		<tr>
+			<td>Salary</td>
+			<td><input type="text" class="inpt" id="salary" name="salary" value=""></td>
+			<td>Department</td>
+			<td><input type="text" class="inpt" id="department" name="department" value=""></td>
+		</tr>
+	</table>
+	<br>
+	<br>
+	<table border="0" height="100%">
+		<tr>
+			<td><button id="first" name="first">First</button></td>
+			<td><button id="next" name="next">Next</button></td>
+			<td><button id="prev" name="prev">Prev</button></td>
+			<td><button id="last" name="last">Last</button></td>
+		</tr>
+		<tr>
+			<td><button id="add" name="add">Add</button></td>
+			<td><button id="edit" name="edit">Edit</button></td>
+			<td><button id="delete" name="delete">Delete</button></td>
+			<td><button id="save" name="save">Save</button></td>
+		</tr>
+		<tr>
+			<td><button id="search" name="search">Search</button></td>
+			<td><button type="reset" id="clear" name="clear">Clear</button></td>
+			<td><button id="exit" name="exit">Exit</button></td>
+		</tr>
+	</table>
+
+	<script src="script.js"></script>
+</body>
+
+</html>
