@@ -1,0 +1,38 @@
+@charset "ISO-8859-1";
+
+h1 {
+	text-align: center;
+}
+
+td {
+	padding: 10px;
+	font-size: 20px;
+}
+
+.inpt {
+	padding: 8px;
+}
+
+body {
+	margin: 3%;
+}
+
+select {
+	color: whitesmoke;
+	background-color: rgb(69, 68, 68);
+	padding: 5px;
+	font-size: 15px;
+}
+
+button {
+	font-size: 15px;
+	padding: 6px;
+	width: 80px;
+	transition-duration: 0.4s;
+}
+
+button:hover {
+	background-color: rgb(143, 143, 143);
+	color: rgb(0, 0, 0);
+	border: 2px solid rgb(0, 0, 0);
+}
