@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%@ page
-	import="folder.*, java.util.*, java.sql.*, jakarta.servlet.*, jakarta.servlet.http.*, java.awt.*"%>
+	import="folder.*, java.util.*, java.sql.*, jakarta.servlet.*, jakarta.servlet.http.*"%>
 
 <head>
 <meta charset="UTF-8">
@@ -60,13 +60,11 @@
 			<tr>
 				<td><button type="submit" id="add" name="bname" value="add">Add</button></td>
 				<td><button type="submit" id="edit" name="bname" value="edit">Edit</button></td>
-				<td><button type="submit" id="delete" name="bname"
-						value="delete">Delete</button></td>
+				<td><button type="submit" id="delete" name="bname" value="delete">Delete</button></td>
 				<td><button type="submit" id="save" name="bname" value="save">Save</button></td>
 			</tr>
 			<tr>
-				<td><button type="submit" id="search" name="bname"
-						value="search">Search</button></td>
+				<td><button type="submit" id="search" name="bname" value="search">Search</button></td>
 				<td><button type="submit" id="clear" name="bname" value="clear">Clear</button></td>
 				<td><button type="submit" id="exit" name="bname" value="exit">Exit</button></td>
 			</tr>
@@ -89,12 +87,13 @@
 	
 	
 	// Initialize or retrieve session variable 'data'
-	ArrayList<Employee> E = new ArrayList<>();
+	ArrayList<Employee> E = null;
 	
 	if(sessionVar.getAttribute("data") != null){
 		E = (ArrayList<Employee>) sessionVar.getAttribute("data");
 	}else{
-		sessionVar.setAttribute("data", EmpDAL.getData());
+		E = EmpDAL.getData();
+		sessionVar.setAttribute("data", E);
 	}
 	
 	// Default Values
@@ -204,15 +203,19 @@
 
 	if (s != null && s.equals("search")) {
 		empID = request.getParameter("empid");
-		
-		for(Employee e : E){
-			if(e.getEmpid() == Integer.parseInt(empID)){
-				empID = Integer.toString(e.getEmpid());
-				ename = e.getEname();
-				designation = e.getJob();
-				sal = Double.toString(e.getSalary());
-				department = e.getDepartment();
-			}
+		if(empID != ""){
+			for(Employee e : E){
+				if(e.getEmpid() == Integer.parseInt(empID)){
+					empID = Integer.toString(e.getEmpid());
+					ename = e.getEname();
+					designation = e.getJob();
+					sal = Double.toString(e.getSalary());
+					department = e.getDepartment();
+				}
+			}	
+		}else{
+			System.out.println("You are giving empty number");
+			ename = ""; designation = ""; department = ""; sal = ""; empID = "";
 		}
 	}
 

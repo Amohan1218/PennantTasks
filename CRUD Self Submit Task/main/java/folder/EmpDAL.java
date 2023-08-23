@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,14 +16,16 @@ public class EmpDAL {
 	static Connection con = null;
 	static Statement stmt = null;
 	static ResultSet rs = null;
-	static PreparedStatement insert = null, delete = null;
+	static PreparedStatement insert = null, delete = null, update = null;
 
-	static {
+	public static void callResultSet() {
 
 		try {
 			Class.forName("org.postgresql.Driver");
 
-			con = DriverManager.getConnection("jdbc:postgresql://192.168.110.48:5432/plf_training", "plf_training_admin", "pff123");
+			con = DriverManager.getConnection("jdbc:postgresql://192.168.110.48:5432/plf_training",
+					"plf_training_admin", "pff123");
+
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 			rs = stmt.executeQuery("SELECT * FROM ms_emp_list");
@@ -35,8 +36,11 @@ public class EmpDAL {
 	}
 
 	public static ArrayList<Employee> getData() throws SQLException {
-		ArrayList<Employee> E = new ArrayList<>();
 		
+		callResultSet();
+
+		ArrayList<Employee> E = new ArrayList<>();
+
 		while (rs.next()) {
 			E.add(new Employee(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)));
 		}
@@ -46,6 +50,7 @@ public class EmpDAL {
 	public static JSONArray getJsonData() throws SQLException {
 
 		ArrayList<Employee> AE = EmpDAL.getData();
+
 		JSONArray jarray = new JSONArray(); // JSON Array
 
 		for (Employee e : AE) {
@@ -105,13 +110,14 @@ public class EmpDAL {
 		double v4 = Double.parseDouble(d);
 
 		try {
-			insert = con.prepareStatement("UPDATE ms_emp_list set name = ?, designation = ?, sal = ?, department = ? WHERE empid = ?");
-			insert.setString(1, v2);
-			insert.setString(2, v3);
-			insert.setDouble(3, v4);
-			insert.setString(4, v5);
-			insert.setInt(5, v1);
-			n = insert.executeUpdate();
+			update = con.prepareStatement(
+					"UPDATE ms_emp_list SET name = ?, designation = ?, sal = ?, department = ? WHERE empid = ?");
+			update.setString(1, v2);
+			update.setString(2, v3);
+			update.setDouble(3, v4);
+			update.setString(4, v5);
+			update.setInt(5, v1);
+			n = update.executeUpdate();
 			if (n == 1)
 				return n + " Row Updated..!";
 		} catch (SQLException ae) {
@@ -120,7 +126,13 @@ public class EmpDAL {
 		}
 		return "Row updation Failed..!!";
 	}
-	public static void main(String[] args) throws SQLException {
-		System.out.println(getJsonData());
-	}
+
+//	public static void main(String[] args) throws SQLException {
+//
+//		System.out.println(EmpDAL.getJsonData());
+//
+//		for (Employee e : EmpDAL.getData()) {
+//			System.out.println(e);
+//		}
+//	}
 }
