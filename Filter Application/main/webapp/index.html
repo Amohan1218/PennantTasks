@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Page</title>
+	<style>
+		body {
+			margin-top: 12%;
+		}
+
+		td {
+			font-size: 22px;
+			padding: 8px;
+			border-radius: 18px;
+		}
+
+		button {
+			width: 90px;
+			font-size: 16px;
+			padding: 8px;
+			border-radius: 14px;
+			margin-left: 30%;
+			transition-duration: 0.4s;
+		}
+
+		button:hover {
+			background-color: rgb(143, 143, 143);
+			color: rgb(0, 0, 0);
+			border: 2px solid rgb(0, 0, 0);
+		}
+
+		input {
+			font-size: 16px;
+			border-radius: 13px;
+			padding: 6px;
+		}
+
+		#spl {
+			font-size: 20px;
+			margin-left: 20%;
+		}
+	</style>
+</head>
+
+<body>
+	<center>
+		<h1>Login Page</h1>
+		<table border="0" width="auto">
+			<tr>
+				<td>Username</td>
+				<td><input type="text" name="username" id="username" value="" required></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" name="password" id="password" value="" required></td>
+			</tr>
+			<tr>
+				<td><a href="registration.html" id="spl">Sign Up</a></td>
+				<td><button name="bname" id="bname" value="submit">Sign In</button></td>
+			</tr>
+		</table>
+	</center>
+	<script>
+		var button = document.getElementById("bname");
+		button.addEventListener("click", function () {
+			var uname = document.getElementById("username").value;
+			var pwd = document.getElementById("password").value;
+
+			var xhr = new XMLHttpRequest();
+			var url = "/Application/authenticate?username=" + uname + "&password=" + pwd;
+			xhr.open("GET", url, true);
+
+			xhr.onload = function () {
+				if (xhr.status === 200) {
+					var data = JSON.parse(xhr.responseText);
+
+					var message = data.message;
+					var key = data.key;
+
+					if (message === "Successfully LoggedIn..!!") {
+						window.alert(message);
+						window.location.href = "http://localhost:8080/Application/homepage.jsp";
+					}else{
+						window.alert(message);
+						window.location.reload();
+					}
+				}
+			}
+			xhr.send();
+		});
+	</script>
+</body>
+
+</html>
