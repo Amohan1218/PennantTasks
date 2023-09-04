@@ -103,6 +103,7 @@ EXECUTE FUNCTION ms_generate_slots();
 
 DROP TRIGGER IF EXISTS ms_doc_schd_generate_slots ON ms_doctor_schedule;
 
+
 -- Function for get Slots for week
 
 CREATE OR REPLACE FUNCTION get_Slots(a integer, b integer)	
@@ -144,7 +145,31 @@ END;
 $$ LANGUAGE plpgsql;
 
 SELECT get_Slots(102, 0);
+
+
+
+-- Function for get Slots for already generated
+
+CREATE OR REPLACE FUNCTION get_Generated_Slots(a integer, b date)	
+RETURNS integer AS $$
+DECLARE
+	docId integer;
+    s_date date;
+    no_of_slots integer;
+BEGIN
+	docId := a;
+    s_date := b;
+    
+    SELECT COUNT(*) INTO no_of_slots FROM ms_appointment_slot_calendar 
+    WHERE slot_doc_id = docId AND slot_date = s_date;
+    
+    RETURN no_of_slots;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT get_Generated_Slots(101, '2023-11-06')
 --------------------------------------------------------------------------------------------
+
 
 select slot_date from appointment_slot_calendar where slot_status = 'Available' and slot_doc_id = 106 group by slot_date;
 select * from appointment_slot_calendar;
@@ -153,6 +178,4 @@ select * from appointment_slot_calendar;
 
 select dcsc_range from ms_doctor_schedule where doc_id = 101
 select slot_date from ms_appointment_slot_calendar where slot_status = 'Available' and slot_doc_id = 101 group by slot_date
-
-
 
